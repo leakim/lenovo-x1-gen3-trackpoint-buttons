@@ -23,12 +23,15 @@ INTERFACE = 1  # keyboard Fn
 
 
 x1tbl = {
-    'FnLockOff':    bytes([0x09, 0x54, 0x01]),  # works as expected
-    'FnLockOn':     bytes([0x09, 0x54, 0x02]),  # works as expected
-    'FnSpeakerOff': bytes([0x09, 0x64, 0x01]),  # LED on
-    'FnSpeakerOn':  bytes([0x09, 0x64, 0x02]),  # LED off
-    'FnMicOff':     bytes([0x09, 0x74, 0x01]),  # LED on
-    'FnMicOn':      bytes([0x09, 0x74, 0x02]),  # LED off
+    'FnLockOff':       bytes([0x09, 0x54, 0x01]),  # works as expected
+    'FnLockOn':        bytes([0x09, 0x54, 0x02]),  # works as expected
+    'FnSpeakerOff':    bytes([0x09, 0x64, 0x01]),  # LED on
+    'FnSpeakerOn':     bytes([0x09, 0x64, 0x02]),  # LED off
+    'FnMicOff':        bytes([0x09, 0x74, 0x01]),  # LED on
+    'FnMicOn':         bytes([0x09, 0x74, 0x02]),  # LED off
+    'FnBacklight0':    bytes([0x09, 0x90, 0x03]),  # Keyboard backlight off
+    'FnBacklight50':   bytes([0x09, 0x90, 0x13]),  # Keyboard backlight half
+    'FnBacklight100':  bytes([0x09, 0x90, 0x23]),  # Keyboard backlight max
 }
 
 
@@ -58,7 +61,9 @@ def main():
             for arg in args:
                 print(arg)
                 data = x1tbl[arg]
-                handle.controlWrite(0x21, 9, 0x0209, 1, data, timeout=800)
+                x = handle.controlWrite(0x21, 9, 0x0209, 1, data, timeout=800)
+                #print(repr(x))
+
 
 
 if __name__ == '__main__':
